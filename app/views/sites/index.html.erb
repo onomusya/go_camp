@@ -10,3 +10,9 @@
     <%= link_to "レンタル・販売品", "#", class: "btn btn-outline-success m-2" %>
   </div>
 </div>
+
+<%= month_calendar do |date| %>
+  <div>
+    <%= date.day %>
+  </div>
+<% end %>
