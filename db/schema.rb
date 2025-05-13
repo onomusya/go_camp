@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_12_135952) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_13_051610) do
+  create_table "reservations", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "site_id", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.string "status", default: "pending", null: false
+    t.string "payment_status", default: "unpaid", null: false
+    t.integer "total_price", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_reservations_on_site_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
   create_table "sites", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.integer "capacity", null: false
@@ -36,4 +50,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_12_135952) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reservations", "sites"
+  add_foreign_key "reservations", "users"
 end
