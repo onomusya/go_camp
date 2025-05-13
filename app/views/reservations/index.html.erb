@@ -1,0 +1,21 @@
+<h1>ご予約状況</h1>
+
+<%= month_calendar(first_day: :sunday) do |date| %>
+  <div>
+    <strong><%= date.day %></strong><br>
+
+    <% Site.all.each do |site| %>
+      <% if date < Date.current %>
+        <%= site.name %>: <span style="color: red;">×</span><br>
+      <% else %>
+        <% reserved = Reservation.exists?(site_id: site.id, start_date: date) %>
+        <%= site.name %>:
+        <% if reserved %>
+          <span style="color: red;">×</span>
+        <% else %>
+          <%= link_to "◯", new_reservation_path(site_id: site.id, start_date: date), class: "text-success text-decoration-none" %>
+        <% end %><br>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
