@@ -1,0 +1,27 @@
+<h1>新規予約</h1>
+
+<%= form_with model: @reservation, local: true do |form| %>
+  <div>
+    <%= form.label :site_id, "サイト" %>
+    <%= form.collection_select :site_id, Site.all, :id, :name, selected: @reservation.site_id %>
+  </div>
+
+  <div>
+    <%= form.label :start_date, "開始日" %>
+    <%= form.date_field :start_date, value: @reservation.start_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date, "終了日" %>
+    <%= form.date_field :end_date, value: @reservation.end_date %>
+  </div>
+
+  <div>
+  <%= form.label :total_price, "金額" %>
+  <%= form.text_field :total_price, value: @reservation.total_price, disabled: true %>
+</div>
+
+  <div>
+    <%= form.submit "予約する" %>
+  </div>
+<% end %>
