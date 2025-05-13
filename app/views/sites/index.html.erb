@@ -2,15 +2,6 @@
   <h1 class="display-4 mb-4">GO CAMP</h1>
   <p class="lead">そうだ、キャンプ行こう</p>
 
-  <div class="mt-5">
-    <%= link_to "サイト紹介", "#", class: "btn btn-outline-success m-2" %>
-    <%= link_to "ルール", "#", class: "btn btn-outline-success m-2" %>
-    <%= link_to "予約", "#", class: "btn btn-success m-2" %>
-    <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary m-2" %>
-    <%= link_to "レンタル・販売品", "#", class: "btn btn-outline-success m-2" %>
-  </div>
-</div>
-
 <%= month_calendar do |date| %>
   <div>
     <%= date.day %>
