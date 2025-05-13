@@ -1,20 +1,44 @@
+
 .simple-calendar {
   .day {}
 
-  .wday-0 { background-color: #f8d7da } // 日曜
-  .wday-6 { background-color: #d1ecf1 } // 土曜
+  .wday-0 {
+    background-color: #f8d7da
+  }
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {
+    background-color: #d1ecf1
+  }
 
-  .prev-month a,
-  .next-month a {
+  .today {}
+  
+  .past a{
+    background-color: lightslategray;
+  }
+  .future {}
+
+  .start-date {}
+
+  .prev-month a{
     display: none;
   }
-
-  .calendar-heading {
-    text-align: center;
+  .next-month a{
+    display: none;
   }
+  .current-month {}
 
-  .calendar-title {
+  .has-events {}
+}
+
+.calendar-heading{
+  text-align: center;
+}
+
+  .calendar-title{
     font-weight: bold;
     font-size: 32px;
   }
-}
