@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4">
+  <div class="container-fluid">
+    <%= link_to "GO CAMP", root_path, class: "navbar-brand fw-bold text-success" %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><%= link_to "予約する", "#", class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "サイト紹介", "#", class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "ルール", "#", class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "レンタル・販売品", "#", class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "アクセス", "#", class: "nav-link" %></li>
+        <% if user_signed_in? %>
+          <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: "nav-link text-primary" %></li>
+          <li class="nav-item"><%= link_to "新規登録", new_user_registration_path, class: "nav-link text-success" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
