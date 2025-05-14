@@ -74,3 +74,5 @@ end
 gem 'devise'
 gem 'simple_calendar'
 gem 'sassc'
+gem 'payjp'
+gem 'gon'

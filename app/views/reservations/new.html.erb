@@ -1,6 +1,8 @@
+
+
 <h1>新規予約</h1>
 
-<%= form_with model: @reservation, local: true do |form| %>
+<%= form_with model: @reservation, local: true, html: { id: "charge-form" } do |form| %>
   <div>
     <%= form.label :site_id, "サイト" %>
     <%= form.collection_select :site_id, Site.all, :id, :name, selected: @reservation.site_id %>
@@ -20,6 +22,19 @@
   <%= form.label :total_price, "金額" %>
   <%= form.text_field :total_price, value: @reservation.total_price, disabled: true %>
 </div>
+
+<div class='form-wrap'>
+    <p>カード番号</p>
+    <div id="number-form" class="input-default"></div>
+  </div>
+  <div class='form-wrap'>
+    <p>期限</p>
+    <div id="expiry-form" class="input-default"></div>
+  </div>
+  <div class='form-wrap'>
+    <p>カード背面4桁もしくは3桁の番号</p>
+    <div id="cvc-form" class="input-default"></div>
+  </div>
 
   <div>
     <%= form.submit "予約する" %>
