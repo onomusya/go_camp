@@ -8,12 +8,14 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><%= link_to "予約する", "#", class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "予約する", reservations_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "サイト紹介", "#", class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "ルール", "#", class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "レンタル・販売品", "#", class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "アクセス", "#", class: "nav-link" %></li>
         <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "マイページ", user_path(current_user), class: "nav-link text-primary" %>
           <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %></li>
         <% else %>
           <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: "nav-link text-primary" %></li>

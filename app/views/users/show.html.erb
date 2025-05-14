@@ -1,0 +1,30 @@
+<h1><%= @user.name %>さんのマイページ</h1>
+
+<h2>予約一覧</h2>
+
+<% if @reservations.empty? %>
+  <p>現在、予約はありません。</p>
+<% else %>
+<% @reservations.each do |r| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <p>サイト: <%= r.site.name %></p> <%# @reservation を r に修正 %>
+        <p>期間: <%= r.start_date %> 〜 <%= r.end_date %></p> <%# @reservation を r に修正 %>
+        <p>合計金額: <%= r.total_price %> 円</p> <%# @reservation を r に修正 %>
+        <p>決済状況: <%= r.payment_status %></p> <%# @reservation を r に修正 %>
+
+      <%# 予約の開始日が今日より後の場合のみキャンセルリンクを表示 %>
+        <% if r.start_date > Date.today %> 
+          <%= link_to "キャンセル", reservation_path(r),
+                    method: :delete,
+                    data: { turbo_method: :delete, confirm: "本当にキャンセルしますか？" }, 
+                    class: "btn btn-danger" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %> 
+<% end %> 
+
+<div class="mt-4">
+  <%= link_to "マイページに戻る", user_path(current_user), class: "btn btn-secondary" %>
+</div>
