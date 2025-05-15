@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_13_051610) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_15_015646) do
+  create_table "items", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "item_type", default: 0, null: false
+    t.integer "price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservation_items", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "reservation_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_reservation_items_on_item_id"
+    t.index ["reservation_id"], name: "index_reservation_items_on_reservation_id"
+  end
+
   create_table "reservations", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "site_id", null: false
@@ -50,6 +67,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_13_051610) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reservation_items", "items"
+  add_foreign_key "reservation_items", "reservations"
   add_foreign_key "reservations", "sites"
   add_foreign_key "reservations", "users"
 end
