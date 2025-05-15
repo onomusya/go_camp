@@ -1,0 +1,12 @@
+<h1>キャンプサイトのご紹介</h1>
+
+<% @sites.each do |site| %>
+  <div class="card my-3">
+    <div class="card-body">
+      <h2><%= site.name %></h2>
+      <p>定員: <%= site.capacity %> 名</p>
+      <p>料金: <%= number_to_currency(site.price, unit: "¥", precision: 0) %></p>
+      <p>特徴: <%= site.description %></p>
+    </div>
+  </div>
+<% end %>

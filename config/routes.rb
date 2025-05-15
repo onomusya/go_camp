@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: "sites#index"
-  resources :sites, only: [:index]
+  get 'sites/introduction', to: 'sites#show', as: 'site'
+  resources :sites, only: [:index, :show]
   resources :items, only: [:index]
   resources :reservations, only: [:new, :create, :index, :destroy]
 
