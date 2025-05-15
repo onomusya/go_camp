@@ -1,8 +1,7 @@
-
-
 <h1>新規予約</h1>
 
 <%= form_with model: @reservation, local: true, html: { id: "charge-form" } do |form| %>
+  <!-- サイト & 日付選択 -->
   <div>
     <%= form.label :site_id, "サイト" %>
     <%= form.collection_select :site_id, Site.all, :id, :name, selected: @reservation.site_id %>
@@ -18,10 +17,53 @@
     <%= form.date_field :end_date, value: @reservation.end_date %>
   </div>
 
-  <div>
-  <%= form.label :total_price, "金額" %>
-  <%= form.text_field :total_price, value: @reservation.total_price, disabled: true %>
-</div>
+  <!-- ──────────── レンタルアイテム選択 ──────────── -->
+  <fieldset class="mb-4 p-3 border rounded">
+    <legend class="fw-bold">レンタルアイテムを選択（数量）</legend>
+
+    <% Item.rental.each do |item| %>
+      <% max_q = case item.name
+        when "テント", "タープ", "焚き火台", "BBQセット" then 1
+        when "コット", "マット", "寝袋", "テーブル"          then 2
+        when "チェア"                                       then 4
+        else 1
+        end %>
+
+      <div class="d-flex align-items-center mb-2">
+        <!-- ラベル -->
+        <%= label_tag "reservation[rental_item_ids][#{item.id}]",
+              "#{item.name}（#{item.price}円）",
+              class: "me-2 flex-shrink-0" %>
+
+        <!-- 数量入力: data-price 属性で JS 側で価格取得しやすく -->
+        <%= number_field_tag "reservation[rental_item_ids][#{item.id}]",
+             0,
+             min: 0,
+             max: max_q,
+             class: "form-control form-control-sm w-auto",
+             data: { price: item.price },
+             style: "margin-right: .5rem;" %>
+
+        <!-- 上限表示 -->
+        <small class="text-muted">（最大 <%= max_q %>）</small>
+      </div>
+    <% end %>
+  </fieldset>
+
+
+  <!-- ──────────── 合計金額表示 ──────────── -->
+  <div class="mb-4">
+    <%= form.label :total_price, "合計金額", class: "fw-bold" %><br>
+    <div class="d-inline-flex align-items-baseline">
+      <%= form.text_field :total_price,
+            value: @reservation.total_price || gon.site_price,
+            disabled: true,
+            class: "form-control w-auto text-end",
+            id: "total-price-field" %>
+      <span class="ms-1">円</span>
+    </div>
+  </div>
+
 
 <div class='form-wrap'>
     <p>カード番号</p>
