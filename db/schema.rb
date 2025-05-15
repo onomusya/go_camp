@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_15_015646) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_15_075934) do
   create_table "items", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.integer "item_type", default: 0, null: false
@@ -33,8 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_15_015646) do
     t.bigint "site_id", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
-    t.string "status", default: "pending", null: false
-    t.string "payment_status", default: "unpaid", null: false
+    t.string "status", default: "reserved", null: false
+    t.string "payment_status", default: "paid", null: false
     t.integer "total_price", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,2 +1,31 @@
-<h1>Items#index</h1>
-<p>Find me in app/views/items/index.html.erb</p>
+<h1>アイテム一覧</h1>
+
+<h2>レンタル</h2>
+<% if @rental_items.any? %>
+  <ul>
+    <% @rental_items.each do |item| %>
+      <li>
+        <strong><%= item.name %></strong><br>
+        価格: <%= item.price %>円<br>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>レンタルアイテムはありません。</p>
+<% end %>
+
+<hr>
+
+<h2>販売品</h2>
+<% if @sale_items.any? %>
+  <ul>
+    <% @sale_items.each do |item| %>
+      <li>
+        <strong><%= item.name %></strong><br>
+        価格: <%= item.price %>円<br>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>販売アイテムはありません。</p>
+<% end %>

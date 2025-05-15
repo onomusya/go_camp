@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @rental_items = Item.rental
+    @sale_items = Item.sale
   end
 end
