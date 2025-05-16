@@ -12,7 +12,7 @@
         <li class="nav-item"><%= link_to "サイト紹介", site_path("introduction"), class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "ルール", "#", class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "レンタル・販売品", items_path, class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "アクセス", "#", class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "アクセス", accesses_show_path, class: "nav-link" %></li>
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to "マイページ", user_path(current_user), class: "nav-link text-primary" %>
