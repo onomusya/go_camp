@@ -13,7 +13,7 @@
         <% if reserved %>
           <span style="color: red;">×</span>
         <% else %>
-          <%= link_to "◯", new_reservation_path(site_id: site.id, start_date: date), class: "text-success text-decoration-none" %>
+          <%= link_to "◯", new_reservation_path(site_id: site.id, start_date: date),data: { turbo: false },  class: "text-success text-decoration-none" %>
         <% end %><br>
       <% end %>
     <% end %>
