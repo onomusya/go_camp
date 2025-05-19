@@ -1,84 +1,99 @@
-<h1>新規予約</h1>
+<div class="container mt-5">
+  <h2 class="mb-4">📅 新規予約</h2>
 
-<%= form_with model: @reservation, local: true, html: { id: "charge-form" } do |form| %>
-  <!-- サイト & 日付選択 -->
-  <div>
-    <%= form.label :site_id, "サイト" %>
-    <%= form.collection_select :site_id, Site.all, :id, :name, selected: @reservation.site_id %>
-  </div>
+  <%= form_with model: @reservation, local: true, html: { id: "charge-form" } do |form| %>
 
-  <div>
-    <%= form.label :start_date, "開始日" %>
-    <%= form.date_field :start_date, value: @reservation.start_date %>
-  </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">🏕 サイトと日付の選択</h5>
 
-  <div>
-    <%= form.label :end_date, "終了日" %>
-    <%= form.date_field :end_date, value: @reservation.end_date %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :site_id, "サイト", class: "form-label" %>
+          <%= form.collection_select :site_id, Site.all, :id, :name, selected: @reservation.site_id, class: "form-select" %>
+        </div>
 
-  <!-- ──────────── レンタルアイテム選択 ──────────── -->
-  <fieldset class="mb-4 p-3 border rounded">
-    <legend class="fw-bold">レンタルアイテムを選択（数量）</legend>
+        <div class="mb-3">
+          <%= form.label :start_date, "開始日", class: "form-label" %>
+          <%= form.date_field :start_date, value: @reservation.start_date, class: "form-control" %>
+        </div>
 
-    <% Item.rental.each do |item| %>
-      <% max_q = case item.name
-        when "テント", "タープ", "焚き火台", "BBQセット" then 1
-        when "コット", "マット", "寝袋", "テーブル"          then 2
-        when "チェア"                                       then 4
-        else 1
-        end %>
-
-      <div class="d-flex align-items-center mb-2">
-        <!-- ラベル -->
-        <%= label_tag "reservation[rental_item_ids][#{item.id}]",
-              "#{item.name}（#{item.price}円）",
-              class: "me-2 flex-shrink-0" %>
-
-        <!-- 数量入力: data-price 属性で JS 側で価格取得しやすく -->
-        <%= number_field_tag "reservation[rental_item_ids][#{item.id}]",
-             0,
-             min: 0,
-             max: max_q,
-             class: "form-control form-control-sm w-auto",
-             data: { price: item.price },
-             style: "margin-right: .5rem;" %>
-
-        <!-- 上限表示 -->
-        <small class="text-muted">（最大 <%= max_q %>）</small>
+        <div class="mb-3">
+          <%= form.label :end_date, "終了日", class: "form-label" %>
+          <%= form.date_field :end_date, value: @reservation.end_date, class: "form-control" %>
+        </div>
       </div>
-    <% end %>
-  </fieldset>
-
-
-  <!-- ──────────── 合計金額表示 ──────────── -->
-  <div class="mb-4">
-    <%= form.label :total_price, "合計金額", class: "fw-bold" %><br>
-    <div class="d-inline-flex align-items-baseline">
-      <%= form.text_field :total_price,
-            value: @reservation.total_price || gon.site_price,
-            disabled: true,
-            class: "form-control w-auto text-end",
-            id: "total-price-field" %>
-      <span class="ms-1">円</span>
     </div>
-  </div>
 
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">🎒 レンタルアイテムを選択（数量）</h5>
 
-<div class='form-wrap'>
-    <p>カード番号</p>
-    <div id="number-form" class="input-default"></div>
-  </div>
-  <div class='form-wrap'>
-    <p>期限</p>
-    <div id="expiry-form" class="input-default"></div>
-  </div>
-  <div class='form-wrap'>
-    <p>カード背面4桁もしくは3桁の番号</p>
-    <div id="cvc-form" class="input-default"></div>
-  </div>
+        <% Item.rental.each do |item| %>
+          <% max_q = case item.name
+            when "テント", "タープ", "焚き火台", "BBQセット" then 1
+            when "コット", "マット", "寝袋", "テーブル"        then 2
+            when "チェア"                                     then 4
+            else 1
+            end %>
 
-  <div>
-    <%= form.submit "予約する" %>
-  </div>
-<% end %>
+          <div class="d-flex align-items-center mb-2">
+            <%= label_tag "reservation[rental_item_ids][#{item.id}]",
+                  "#{item.name}（#{item.price}円）",
+                  class: "me-2 flex-shrink-0" %>
+
+            <%= number_field_tag "reservation[rental_item_ids][#{item.id}]",
+                 0,
+                 min: 0,
+                 max: max_q,
+                 class: "form-control form-control-sm w-auto",
+                 data: { price: item.price },
+                 style: "margin-right: .5rem;" %>
+
+            <small class="text-muted">（最大 <%= max_q %>）</small>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">💰 合計金額</h5>
+
+        <div class="d-inline-flex align-items-baseline">
+          <%= form.text_field :total_price,
+                value: @reservation.total_price || gon.site_price,
+                disabled: true,
+                class: "form-control w-auto text-end",
+                id: "total-price-field" %>
+          <span class="ms-2">円</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">💳 カード情報</h5>
+
+        <div class="mb-3">
+          <label>カード番号</label>
+          <div id="number-form" class="form-control"></div>
+        </div>
+
+        <div class="mb-3">
+          <label>有効期限</label>
+          <div id="expiry-form" class="form-control"></div>
+        </div>
+
+        <div class="mb-3">
+          <label>セキュリティコード</label>
+          <div id="cvc-form" class="form-control"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <%= form.submit "予約する", class: "btn btn-primary px-4 py-2" %>
+    </div>
+
+  <% end %>
+</div>
