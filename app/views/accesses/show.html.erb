@@ -1,10 +1,31 @@
-<h1>アクセス</h1>
+<div class="container mt-5">
+  <h2 class="mb-4">📍 アクセス</h2>
 
-<div id="map" style="width: 100%; height: 400px;"></div>
+  <p>
+    GO CAMPは自然豊かな場所に位置し、都市部からのアクセスも良好です。<br>
+    週末のリフレッシュや長期休暇のアウトドア体験にぜひご利用ください。
+  </p>
+
+  <div class="card shadow-sm mt-4">
+    <div class="card-body">
+      <h5 class="card-title">所在地</h5>
+      <p class="card-text">
+        〒530-0001<br>
+        大阪府大阪市北区梅田3丁目1-1<br>
+        最寄駅：JR「大阪駅」より徒歩0分
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h5 class="mb-3">地図</h5>
+    <div id="map" style="width: 100%; height: 400px;" class="rounded shadow-sm"></div>
+  </div>
+</div>
 
 <script>
   function initMap() {
-    const location = { lat: 34.70246468728362, lng: 135.4960139546373 }; // 表示したい緯度・経度
+    const location = { lat: 34.70246468728362, lng: 135.4960139546373 };
     const map = new google.maps.Map(document.getElementById("map"), {
       zoom: 14,
       center: location,
