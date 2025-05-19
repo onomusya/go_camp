@@ -26,22 +26,44 @@
   </div>
 </div>
 
-<div class="container text-center mt-5">
-  <%= month_calendar(first_day: :sunday) do |date| %>
-    <div>
-      <strong><%= date.day %></strong><br>
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">📅 空き状況カレンダー</h2>
 
-      <% available_count = Site.count - Reservation.where(start_date: date).count %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%= month_calendar(
+            first_day: :sunday,
+            class: "table table-bordered",
+            day_classes: ->(date) {
+              if date == Date.current
+                "bg-warning"              # 今日
+              elsif date < Date.current
+                "bg-light text-muted"     # 過去
+              else
+                ""                        # 通常
+              end
+            }
+          ) do |date| %>
 
-      <% if date < Date.current %>
-        <span style="color: red;">×</span>
-      <% elsif available_count <= 0 %>
-        <%= link_to "×", reservations_path(date: date), style: "color: red; text-decoration: none;" %>
-      <% elsif available_count <= 2 %>
-        <%= link_to "▲", reservations_path(date: date), style: "color: orange; text-decoration: none;" %>
-      <% else %>
-        <%= link_to "◯", reservations_path(date: date), style: "color: green; text-decoration: none;" %>
+        <div class="p-2 text-center">
+          <strong><%= date.day %></strong><br>
+
+          <% available_count = Site.count - Reservation.where(start_date: date).count %>
+
+          <% if date < Date.current %>
+            <span class="text-danger fw-bold">×</span>
+          <% elsif available_count <= 0 %>
+            <%= link_to "×", reservations_path(date: date),
+                        class: "text-danger fw-bold text-decoration-none" %>
+          <% elsif available_count <= 2 %>
+            <%= link_to "▲", reservations_path(date: date),
+                        class: "text-warning fw-bold text-decoration-none" %>
+          <% else %>
+            <%= link_to "◯", reservations_path(date: date),
+                        class: "text-success fw-bold text-decoration-none" %>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

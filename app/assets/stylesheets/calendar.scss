@@ -42,3 +42,8 @@
     font-weight: bold;
     font-size: 32px;
   }
+
+  td.prev-month,
+td.next-month {
+  visibility: hidden;
+}
