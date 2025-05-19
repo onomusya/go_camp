@@ -3,7 +3,21 @@
 
   <div class="card shadow-sm">
     <div class="card-body">
-      <%= month_calendar(first_day: :sunday, class: "table table-bordered") do |date| %>
+
+      <%= month_calendar(
+            first_day: :sunday,
+            class: "table table-bordered",
+            day_classes: ->(date) {
+              if date == Date.current
+                "bg-warning"              # 今日
+              elsif date < Date.current
+                "bg-light text-muted"     # 過去
+              else
+                ""                        # 通常
+              end
+            }
+          ) do |date| %>
+
         <div class="p-2">
           <strong><%= date.day %></strong><br>
 
@@ -26,6 +40,7 @@
           <% end %>
         </div>
       <% end %>
+
     </div>
   </div>
 </div>
