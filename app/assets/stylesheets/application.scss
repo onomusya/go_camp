@@ -1,5 +1,7 @@
 @import "calendar";
 
+
+/* トップページの画像 */
 .carousel-item {
   position: relative;
 }
@@ -20,5 +22,30 @@
   width: 100%;
   height: 470px;
   object-fit: cover;
+}
+
+/* ナビバー */
+.nav-link {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  padding-bottom: 4px; /* 下線のため少し余白調整 */
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;            /* 真ん中に開始位置 */
+    bottom: 0;
+    height: 2px;          /* 下線の太さ */
+    width: 0;
+    background-color: #888888;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    width: 100%;
+    left: 0;               /* 左端に戻す */
+  }
 }
 
