@@ -1,21 +1,46 @@
-<h1>ご予約状況</h1>
+<div class="container mt-5">
+  <h2 class="mb-4">📅 ご予約状況</h2>
 
-<%= month_calendar(first_day: :sunday) do |date| %>
-  <div>
-    <strong><%= date.day %></strong><br>
+  <div class="card shadow-sm">
+    <div class="card-body">
 
-    <% Site.all.each do |site| %>
-      <% if date < Date.current %>
-        <%= site.name %>: <span style="color: red;">×</span><br>
-      <% else %>
-        <% reserved = Reservation.exists?(site_id: site.id, start_date: date) %>
-        <%= site.name %>:
-        <% if reserved %>
-          <span style="color: red;">×</span>
-        <% else %>
-          <%= link_to "◯", new_reservation_path(site_id: site.id, start_date: date),data: { turbo: false },  class: "text-success text-decoration-none" %>
-        <% end %><br>
+      <%= month_calendar(
+            first_day: :sunday,
+            class: "table table-bordered",
+            day_classes: ->(date) {
+              if date == Date.current
+                "bg-warning"              # 今日
+              elsif date < Date.current
+                "bg-light text-muted"     # 過去
+              else
+                ""                        # 通常
+              end
+            }
+          ) do |date| %>
+
+        <div class="p-2">
+          <strong><%= date.day %></strong><br>
+
+          <% Site.all.each do |site| %>
+            <% if date < Date.current %>
+              <div class="text-muted small">
+                <%= site.name %>: <span class="text-danger">×</span>
+              </div>
+            <% else %>
+              <% reserved = Reservation.exists?(site_id: site.id, start_date: date) %>
+              <div class="small">
+                <%= site.name %>:
+                <% if reserved %>
+                  <span class="text-danger fw-bold">×</span>
+                <% else %>
+                  <%= link_to "◯", new_reservation_path(site_id: site.id, start_date: date), data: { turbo: false }, class: "text-success fw-bold text-decoration-none" %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
+
+    </div>
   </div>
-<% end %>
+</div>

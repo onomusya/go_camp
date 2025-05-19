@@ -1,12 +1,27 @@
-<h1>キャンプサイトのご紹介</h1>
+<div class="container mt-5">
+  <h2 class="mb-4">🏕 キャンプサイトのご紹介</h2>
 
-<% @sites.each do |site| %>
-  <div class="card my-3">
-    <div class="card-body">
-      <h2><%= site.name %></h2>
-      <p>定員: <%= site.capacity %> 名</p>
-      <p>料金: <%= number_to_currency(site.price, unit: "¥", precision: 0) %></p>
-      <p>特徴: <%= site.description %></p>
+  <p>
+    当キャンプ場には、それぞれに個性をもった複数のサイトをご用意しています。<br>
+    ご利用人数やスタイルに合わせて、お好みのサイトをお選びください。
+  </p>
+
+  <hr>
+
+  <% @sites.each do |site| %>
+    <div class="card my-4 shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-3">📍 <%= site.name %></h4>
+        <ul class="list-unstyled mb-2">
+          <li><strong>定員：</strong><%= site.capacity %> 名</li>
+          <li><strong>料金：</strong><%= number_to_currency(site.price, unit: "¥", precision: 0) %> / 泊</li>
+          <li><strong>特徴：</strong><%= site.description %></li>
+        </ul>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+
+  <p class="mt-4">
+    詳しい設備や予約状況など、ご不明点がございましたらスタッフまでお気軽にご相談ください。
+  </p>
+</div>

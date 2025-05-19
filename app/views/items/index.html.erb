@@ -1,31 +1,52 @@
-<h1>アイテム一覧</h1>
+<div class="container mt-5">
+  <h2 class="mb-4">🧺 アイテム一覧</h2>
 
-<h2>レンタル</h2>
-<% if @rental_items.any? %>
-  <ul>
-    <% @rental_items.each do |item| %>
-      <li>
-        <strong><%= item.name %></strong><br>
-        価格: <%= item.price %>円<br>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>レンタルアイテムはありません。</p>
-<% end %>
+  <p>
+    キャンプをより快適に楽しんでいただくために、<br>
+    各種レンタルアイテムや販売品をご用意しております。
+  </p>
 
-<hr>
+  <hr>
 
-<h2>販売品</h2>
-<% if @sale_items.any? %>
-  <ul>
-    <% @sale_items.each do |item| %>
-      <li>
-        <strong><%= item.name %></strong><br>
-        価格: <%= item.price %>円<br>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>販売アイテムはありません。</p>
-<% end %>
+  <h3 class="mt-4">🎒 レンタルアイテム</h3>
+  <% if @rental_items.any? %>
+    <div class="row">
+      <% @rental_items.each do |item| %>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"> <%= item.name %></h5>
+              <p class="card-text"><strong>価格：</strong><%= number_to_currency(item.price, unit: "¥", precision: 0) %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>レンタルアイテムは現在ご用意がありません。</p>
+  <% end %>
+
+  <hr>
+
+  <h3 class="mt-4">🪵 販売品</h3>
+  <% if @sale_items.any? %>
+    <div class="row">
+      <% @sale_items.each do |item| %>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"> <%= item.name %></h5>
+              <p class="card-text"><strong>価格：</strong><%= number_to_currency(item.price, unit: "¥", precision: 0) %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>販売アイテムは現在ご用意がありません。</p>
+  <% end %>
+
+  <p class="mt-4">
+    詳細はスタッフまでお気軽にお尋ねください。必要なものをしっかり準備して、安心・快適なキャンプをお楽しみください。
+  </p>
+</div>
