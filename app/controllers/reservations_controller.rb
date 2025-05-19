@@ -28,7 +28,7 @@ class ReservationsController < ApplicationController
   
       # 合計金額が計算されたら、決済処理に進む
       if process_payment_and_save
-        redirect_to reservations_path, notice: '予約が完了しました。'
+        redirect_to reservation_complete_path
       else
         # 決済失敗時 (flash.now[:alert] は process_payment_and_save で設定済み)
         render :new, status: :unprocessable_entity
@@ -39,6 +39,9 @@ class ReservationsController < ApplicationController
       # build_reservation_items で items が既に populate されているはずなので、render :new でフォームに反映されるはず
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def complete
   end
 
   def index
