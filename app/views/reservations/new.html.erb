@@ -92,7 +92,8 @@
     </div>
 
     <div class="text-center">
-      <%= form.submit "予約する", class: "btn btn-primary px-4 py-2" %>
+      <%= form.submit "予約する", class: "btn btn-primary px-4 py-2",
+      data: { confirm: "この内容で予約してもよろしいですか？" } %>
     </div>
 
   <% end %>
