@@ -1,22 +1,47 @@
-<div class="container text-center mt-5">
-  <h1 class="display-4 mb-4">GO CAMP</h1>
-  <p class="lead">そうだ、キャンプ行こう</p>
+<div id="topCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-turbo="false">
+  <div class="carousel-inner">
+    <div class="carousel-item active position-relative" data-bs-interval="4000">
+      <%= image_tag "slide1.jpg", class: "d-block w-100 carousel-image", loading: "eager", alt: "キャンプ場1" %>
+      <div class="carousel-caption-custom">
+        <h1 class="display-4 text-white mb-3 text-center">GO CAMP</h1>
+        <p class="lead text-white text-center">そうだ、キャンプ行こう</p>
+      </div>
+    </div>
 
-  <%= month_calendar(first_day: :sunday) do |date| %>
-  <div>
-    <strong><%= date.day %></strong><br>
+    <div class="carousel-item position-relative" data-bs-interval="4000">
+      <%= image_tag "slide2.jpg", class: "d-block w-100 carousel-image", loading: "lazy", alt: "キャンプ場2" %>
+      <div class="carousel-caption-custom">
+        <h1 class="display-4 text-white mb-3 text-center">GO CAMP</h1>
+        <p class="lead text-white text-center">そうだ、キャンプ行こう</p>
+      </div>
+    </div>
 
-    <% available_count = Site.count - Reservation.where(start_date: date).count %>
-
-    <% if date < Date.current %>
-      <span style="color: red;">×</span>
-    <% elsif available_count <= 0 %>
-      <%= link_to "×", reservations_path(date: date), style: "color: red; text-decoration: none;" %>
-    <% elsif available_count <= 2 %>
-      <%= link_to "▲", reservations_path(date: date), style: "color: orange; text-decoration: none;" %>
-    <% else %>
-      <%= link_to "◯", reservations_path(date: date), style: "color: green; text-decoration: none;" %>
-    <% end %>
+    <div class="carousel-item position-relative" data-bs-interval="4000">
+      <%= image_tag "slide3.jpg", class: "d-block w-100 carousel-image", loading: "lazy", alt: "キャンプ場3" %>
+      <div class="carousel-caption-custom">
+        <h1 class="display-4 text-white mb-3 text-center">GO CAMP</h1>
+        <p class="lead text-white text-center">そうだ、キャンプ行こう</p>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="container text-center mt-5">
+  <%= month_calendar(first_day: :sunday) do |date| %>
+    <div>
+      <strong><%= date.day %></strong><br>
+
+      <% available_count = Site.count - Reservation.where(start_date: date).count %>
+
+      <% if date < Date.current %>
+        <span style="color: red;">×</span>
+      <% elsif available_count <= 0 %>
+        <%= link_to "×", reservations_path(date: date), style: "color: red; text-decoration: none;" %>
+      <% elsif available_count <= 2 %>
+        <%= link_to "▲", reservations_path(date: date), style: "color: orange; text-decoration: none;" %>
+      <% else %>
+        <%= link_to "◯", reservations_path(date: date), style: "color: green; text-decoration: none;" %>
+      <% end %>
+    </div>
   <% end %>
 </div>
