@@ -4,4 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          has_many :reservations, dependent: :destroy
+
+         validates :name, :phone_number, :postal_code, :address, presence: true
 end
