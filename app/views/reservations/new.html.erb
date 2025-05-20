@@ -1,6 +1,17 @@
 <div class="container mt-5">
   <h2 class="mb-4">📅 新規予約</h2>
 
+    <%# --- ここにエラーメッセージ表示 --- %>
+  <% if @reservation.errors.any? %>
+    <div class="error-messages" style="color: red; margin-bottom: 20px;">
+      <ul>
+        <% @reservation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form_with model: @reservation, local: true, html: { id: "charge-form" } do |form| %>
 
     <div class="card mb-4 shadow-sm">
